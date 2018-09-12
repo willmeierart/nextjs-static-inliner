@@ -77,7 +77,7 @@ function MSify (newFileName, sourceFileNamePlusParentDir) {
     })
   }
 
-  const replaceRefWithScriptContent = async (scriptFile, scriptMatch) => {
+  // const replaceRefWithScriptContent = async (scriptFile, scriptMatch) => {
   //   // replace script ref tag with inline script
   //   console.log('REPLACING SCRIPT CONTENT: ', scriptFile)
   //   try {

@@ -14,7 +14,6 @@ function MSify (newFileName, sourceFileNamePlusParentDir) {
 
   const outputDir = 'missionsuiteready'
   const msHTMLfile = 'HEAD_SCRIPTS.html'
-  // const safeDirname = file.path.abspath(__dirname)
 
   let transformedFileTxt = ''
 
@@ -69,55 +68,20 @@ function MSify (newFileName, sourceFileNamePlusParentDir) {
     })
   }
 
-  const findEachHeadFileTag = async (headTagMatches) => {
-    // find preload links in head and delete them
-    asyncForEach(headTagMatches, async (tagMatch, i) => {
-      console.log('HEAD_TAG_MATCH: ', tagMatch)
-      transformedFileTxt = transformedFileTxt.replace(tagMatch, '')
-    })
-  }
-
-  // const replaceRefWithScriptContent = async (scriptFile, scriptMatch) => {
-  //   // replace script ref tag with inline script
-  //   console.log('REPLACING SCRIPT CONTENT: ', scriptFile)
-  //   try {
-  //     await fs.readFile(scriptFile, 'utf8', (err, scriptFileTxt) => {
-  //       if (err) console.log(err)
-  //       else {
-  //         console.log('SCRIPT_FILE_TXT: ', scriptFileTxt, scriptFile)
-  //         transformedFileTxt = transformedFileTxt.replace(scriptMatch, `<script type='text/javascript'>${scriptFileTxt}</script>`)
-  //         writeNewFile() // HOW TO GET OUT OF HERE AND BELOW AND MAKE IT ALL RUN ONCE
-  //       }
-  //     })
-  //   } catch (e) { console.log(e) }
-  // }
-
-  const findEachScriptFileRef = async (scriptMatches) => {
-    // find each actual script file ref'd inline
-    asyncForEach(scriptMatches, async (scriptMatch, i) => {
-      // const src = new RegExp(scriptMatch.match(srcFinder).pop(), 'g')
-      // try {
-      //   await find.file(src, __dirname, scriptFiles => {
-      //     if (scriptFiles.length > 0) {
-      //       const scriptFile = scriptFiles.pop()
-      //       replaceRefWithScriptContent(scriptFile, scriptMatch)
-      //     } else {
-      //       console.log('no script files found')
-      //     }
-      //   })
-      // } catch (e) { console.log(e) }
-      transformedFileTxt = transformedFileTxt.replace(scriptMatch, '')
+  const findAndDelete = async set => {
+    asyncForEach(set, async (item, i) => {
+      transformedFileTxt = transformedFileTxt.replace(item, '')
     })
   }
 
   const runTheMachineOn = async transformedFileTxt => {
     const scriptMatches = transformedFileTxt.match(scriptFinder)
     if (scriptMatches.length > 0) {
-      await findEachScriptFileRef(scriptMatches, transformedFileTxt)
+      await findAndDelete(scriptMatches)
     }
     const headTagMatches = transformedFileTxt.match(headTagFinder)
     if (headTagMatches.length > 0) {
-      await findEachHeadFileTag(headTagMatches, transformedFileTxt)
+      await findAndDelete(headTagMatches)
     }
     await handleExtraTagsFor(transformedFileTxt)
   }
@@ -142,7 +106,6 @@ function MSify (newFileName, sourceFileNamePlusParentDir) {
         const matchedFiles = walkFiles.filter(f => f === fileName)
         const walkParentDir = walkDirPath.split('/').pop()
         const isntPageFolder = walkDirPath.indexOf('page') === -1
-        // theres also a page/index file >>> can you use a regex method to clean this sloppy part up?
         if (matchedFiles.length > 0 && walkParentDir === parentDir && isntPageFolder) {
           const sourceFile = file.path.join(walkDirPath, matchedFiles.pop())
           getHTMLtxtContent(sourceFile)

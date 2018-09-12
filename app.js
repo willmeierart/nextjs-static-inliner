@@ -8,7 +8,7 @@ MSify(newFileName)
 
 function MSify (newFileName, sourceFileNamePlusParentDir) {
   const headTagFinder = /\<link rel="preload(.*?)as="script"\/\>/g
-  const scriptFinder = /(<script async="" id="__NEXT_PAGE|<script src="\/_next)([^;]*?)\>\<\/script\>/g
+  const scriptFinder = /(<script async="" id="__NEXT_PAGE|([^"]<script src="\/_next))([^]*?)\>\<\/script\>/g
   const srcFinder = /(?<=src="\/).*?(?=")/
 
   const outputDir = 'missionsuiteready'

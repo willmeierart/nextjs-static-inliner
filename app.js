@@ -78,34 +78,35 @@ function MSify (newFileName, sourceFileNamePlusParentDir) {
   }
 
   const replaceRefWithScriptContent = async (scriptFile, scriptMatch) => {
-    // replace script ref tag with inline script
-    console.log('REPLACING SCRIPT CONTENT: ', scriptFile)
-    try {
-      await fs.readFile(scriptFile, 'utf8', (err, scriptFileTxt) => {
-        if (err) console.log(err)
-        else {
-          console.log('SCRIPT_FILE_TXT: ', scriptFileTxt, scriptFile)
-          transformedFileTxt = transformedFileTxt.replace(scriptMatch, `<script type='text/javascript'>${scriptFileTxt}</script>`)
-          writeNewFile() // HOW TO GET OUT OF HERE AND BELOW AND MAKE IT ALL RUN ONCE
-        }
-      })
-    } catch (e) { console.log(e) }
-  }
+  //   // replace script ref tag with inline script
+  //   console.log('REPLACING SCRIPT CONTENT: ', scriptFile)
+  //   try {
+  //     await fs.readFile(scriptFile, 'utf8', (err, scriptFileTxt) => {
+  //       if (err) console.log(err)
+  //       else {
+  //         console.log('SCRIPT_FILE_TXT: ', scriptFileTxt, scriptFile)
+  //         transformedFileTxt = transformedFileTxt.replace(scriptMatch, `<script type='text/javascript'>${scriptFileTxt}</script>`)
+  //         writeNewFile() // HOW TO GET OUT OF HERE AND BELOW AND MAKE IT ALL RUN ONCE
+  //       }
+  //     })
+  //   } catch (e) { console.log(e) }
+  // }
 
   const findEachScriptFileRef = async (scriptMatches) => {
     // find each actual script file ref'd inline
     asyncForEach(scriptMatches, async (scriptMatch, i) => {
-      const src = new RegExp(scriptMatch.match(srcFinder).pop(), 'g')
-      try {
-        await find.file(src, __dirname, scriptFiles => {
-          if (scriptFiles.length > 0) {
-            const scriptFile = scriptFiles.pop()
-            replaceRefWithScriptContent(scriptFile, scriptMatch)
-          } else {
-            console.log('no script files found')
-          }
-        })
-      } catch (e) { console.log(e) }
+      // const src = new RegExp(scriptMatch.match(srcFinder).pop(), 'g')
+      // try {
+      //   await find.file(src, __dirname, scriptFiles => {
+      //     if (scriptFiles.length > 0) {
+      //       const scriptFile = scriptFiles.pop()
+      //       replaceRefWithScriptContent(scriptFile, scriptMatch)
+      //     } else {
+      //       console.log('no script files found')
+      //     }
+      //   })
+      // } catch (e) { console.log(e) }
+      transformedFileTxt.replace(scriptMatch, `<script type='text/javascript'>${scriptFileTxt}</script>`)
     })
   }
 

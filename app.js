@@ -106,7 +106,7 @@ function MSify (newFileName, sourceFileNamePlusParentDir) {
       //     }
       //   })
       // } catch (e) { console.log(e) }
-      transformedFileTxt.replace(scriptMatch, `<script type='text/javascript'>${scriptFileTxt}</script>`)
+      transformedFileTxt.replace(scriptMatch, '')
     })
   }
 

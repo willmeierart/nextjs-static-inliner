@@ -1,0 +1,127 @@
+
+<script type="text/javascript" language="JavaScript">
+function updateConditionals() {
+  try {
+  if (parent.$('#signupFormIframe1')) {
+    parent.$('#signupFormIframe1').height($('body').height() + 20);
+  }
+  } catch (e) {}
+}
+
+function checkMandatory() {
+  var ok2submit = 1;
+  var errorFields = '';
+  var atTest = /\@/;
+  var dotTest = /\./;
+  if ((atTest.test(document.signupForm.Email.value) == false) || (dotTest.test(document.signupForm.Email.value) ==
+    false)) {
+  ok2submit = 0;
+  errorFields += 'Email';
+  }
+  if ((document.signupForm.Email.value == '') || (document.signupForm.Email.value == ' ')) {
+  ok2submit = 0;
+  errorFields += ', Email';
+  }
+  if ((document.signupForm.Firstname.value == '') || (document.signupForm.Firstname.value == ' ')) {
+  ok2submit = 0;
+  errorFields += ', Firstname';
+  }
+  if ((document.signupForm.Lastname.value == '') || (document.signupForm.Lastname.value == ' ')) {
+  ok2submit = 0;
+  errorFields += ', Lastname';
+  }
+  if ((document.signupForm.Phone.value == '') || (document.signupForm.Phone.value == ' ')) {
+  ok2submit = 0;
+  errorFields += ', Phone';
+  }
+  if (ok2submit == 0) {
+  var errorFields2 = errorFields.replace(/^\, /, '');
+  alert('To submit this form, please ensure you have entered information for: ' + errorFields2);
+  return false;
+  } else {
+  return true;
+  }
+}
+$(document).ready(function () {
+  $('#signup_Email').on('blur', function () {
+  $('#emailEntryAlert').html('');
+  $(this).mailcheck({
+    suggested: function (element, suggestion) {
+    $('#emailEntryAlert').html('Did you mean <a onclick="$(\'#signup_Email\').val(\'' + suggestion.full +
+      '\'); $(\'#emailEntryAlert\').html(\'\');" style="text-decoration: underline; cursor: pointer;" title="Click here to make this your intended email address">' +
+      suggestion.full + '</a>?');
+    },
+    empty: function (element) {
+    if ($('#signup_Email').val() == '') {
+      $('#emailEntryAlert').html('Be sure to enter a valid email address!');
+    }
+    }
+  });
+  });
+  $(':input').on('click', function () {
+  updateConditionals()
+  });
+  $(':input').on('blur', function () {
+  updateConditionals()
+  });
+  $(':input').on('focus', function () {
+  updateConditionals()
+  });
+  $(':input').on('keyup', function () {
+  updateConditionals()
+  });
+  $('textarea').on('click', function () {
+  updateConditionals()
+  });
+  $('textarea').on('blur', function () {
+  updateConditionals()
+  });
+  $('textarea').on('focus', function () {
+  updateConditionals()
+  });
+  $('textarea').on('keyup', function () {
+  updateConditionals()
+  });
+  $('select').on('click', function () {
+  updateConditionals()
+  });
+  $('select').on('blur', function () {
+  updateConditionals()
+  });
+  $('select').on('focus', function () {
+  updateConditionals()
+  });
+  $('select').on('change', function () {
+  updateConditionals()
+  });
+  updateConditionals();
+});
+</script>
+<script type="text/javascript"> Mailcheck.defaultDomains.push('hp.com', 'yahoo.com.tw', 'yahoo.com.au', 'yahoo.com.mx', 'seznam.cz', 'bellsouth.net', 'hotmail.fr', 'mail.ru', 'btinternet.com', 'cox.net', 'yahoo.com.br', 'bigpond.com', 'yahoo.fr', 'ymail.com', 'earthlink.net', 'xtra.co.nz', 'me.com', 'yahoo.gr', 'walla.com', 'yahoo.es', 'charter.net', 'shaw.ca', 'live.nl', 'yahoo.ca', 'orange.fr', 'optonline.net', 'gmx.de', 'wanadoo.fr', 'optusnet.com.au', 'rogers.com', 'web.de', 'ntlworld.com', 'juno.com', 'yahoo.com.sg', 'rocketmail.com', 'yandex.ru', 'yahoo.co.in', 'centrum.cz', 'live.co.uk', 'sympatico.ca', 'libero.it', 'walla.co.il', 'bigpond.net.au', 'yahoo.com.hk', 'ig.com.br', 'live.com.au', 'free.fr', 'sky.com', 'uol.com.br', 'abv.bg', 'live.fr', 'terra.com.br', 'hotmail.it', 'tiscali.co.uk', 'rediffmail.com', 'aim.com', 'blueyonder.co.uk', 'telus.net', 'bol.com.br', 'hotmail.es', 'email.cz', 'windowslive.com', 'talktalk.net', 'home.nl', 't-online.de', 'yahoo.de', 'telenet.be', '163.com', 'embarqmail.com', 'windstream.net', 'roadrunner.com', 'bluewin.ch', 'skynet.be', 'laposte.net', 'yahoo.it', 'qq.com', 'live.dk', 'planet.nl', 'hetnet.nl', 'gmx.net', 'mindspring.com', 'rambler.ru', 'iinet.net.au', 'eircom.net', 'yahoo.com.ar', 'wp.pl', 'mail.com', 'emmis.com', 'hotmail.de', 'lireo.com', 'gmx.at', 'ukr.net', 'zol.co.zw'); Mailcheck.defaultTopLevelDomains.push('com.au', 'com.br', 'ru', 'us') 
+</script>
+
+<!-- <script type="text/javascript">
+  jQuery(document).ready(function ($) {
+  $('.form-wrapper').hide();
+  $('.form-section .form-btn').click(function () {
+    $('.form-section .form-wrapper').show().css({display: 'flex'});
+    $('.form-section').children(':not(.form-wrapper)').hide();
+    $('.form-section').addClass('pad-normal');
+  })
+  $('.form-section .x').click(function () {
+    $('.form-section .form-wrapper').hide();
+    $('.form-section').children(':not(.form-wrapper)').show();
+    $('.form-section').removeClass('pad-normal');
+  })
+  $('.end-statement .form-btn').click(function () {
+    $('.end-statement .form-wrapper').show().css({display: 'flex'});
+    $('.end-statement').children(':not(.form-wrapper)').hide();
+    $('.end-statement').css({ padding: '2.5vw' });
+  })
+  $('.end-statement .x').click(function () {
+    $('.end-statement .form-wrapper').hide();
+    $('.end-statement').children(':not(.form-wrapper)').show();
+    $('.end-statement').removeClass('pad-normal');
+  })
+  })
+</script> -->

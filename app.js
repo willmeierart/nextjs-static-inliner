@@ -26,9 +26,6 @@ function MSify (newFileName, sourceFileNamePlusParentDir) {
   const writeNewFile = async () => {
     const outputFolderAbsPath = file.path.join(__dirname, outputDir)
     const outputFileAbsPath = file.path.join(outputFolderAbsPath, newFileName).replace(' ', '\ ')
-
-    // console.log('WRITE_NEW_FILE_FUNC TRANSFORMED_TEXT: ', transformedFileTxt)
-
     if (!fs.existsSync(outputFolderAbsPath)) {
       try {
         await fs.mkdirSync(outputFolderAbsPath)
@@ -60,7 +57,7 @@ function MSify (newFileName, sourceFileNamePlusParentDir) {
             console.log(err)
           } else {
             transformedFileTxt = transformedFileTxt.replace('</head>', `${htmlHeadContent}</head>`)
-            writeNewFile()
+            writeNewFile() // HOW TO GET OUT OF HERE AND BELOW AND MAKE IT ALL RUN ONCE
           }
         })
       } else {
@@ -88,17 +85,11 @@ function MSify (newFileName, sourceFileNamePlusParentDir) {
         else {
           console.log('SCRIPT_FILE_TXT: ', scriptFileTxt, scriptFile)
           transformedFileTxt = transformedFileTxt.replace(scriptMatch, `<script type='text/javascript'>${scriptFileTxt}</script>`)
-          writeNewFile()
+          writeNewFile() // HOW TO GET OUT OF HERE AND BELOW AND MAKE IT ALL RUN ONCE
         }
       })
     } catch (e) { console.log(e) }
   }
-
-
-//working up to here
-
-
-
 
   const findEachScriptFileRef = async (scriptMatches) => {
     // find each actual script file ref'd inline

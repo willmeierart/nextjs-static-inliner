@@ -3,8 +3,9 @@ const fs = require('fs')
 const file = require('file')
 
 let newFileName = 'smc_lp_02.html'
-MSify(newFileName)
+let sourceFileNamePlusParentDir = 'index/index.html'
 
+MSify(newFileName, sourceFileNamePlusParentDir)
 
 function MSify (newFileName, sourceFileNamePlusParentDir) {
   const headTagFinder = /\<link rel="preload(.*?)as="script"\/\>/g
@@ -157,7 +158,7 @@ function MSify (newFileName, sourceFileNamePlusParentDir) {
     checkFoldersForMatchedFiles(fileName, parentDir)
   }
 
-  transformer('index/index.html')
+  transformer(sourceFileNamePlusParentDir)
 }
 
 module.exports = MSify
